@@ -18,64 +18,36 @@ import android.graphics.BitmapFactory
 
 import android.graphics.Bitmap
 import android.widget.ImageView
+import com.example.pokemonapp.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val _pokemon : MutableLiveData<PokemonData> = MutableLiveData()
-    val pokemon : LiveData<PokemonData> get() = _pokemon
 
-    lateinit var textView : TextView
-    lateinit var button : Button
-    lateinit var  imageView : ImageView
+
+    private lateinit var binding: ActivityMainBinding
+    private var viewModel: MainViewModel = MainViewModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        textView = findViewById(R.id.nametxt)
-        button = findViewById(R.id.button)
-        imageView = findViewById(R.id.imageView)
-
-        pokemon.observe(this,{
-            textView.text = it.name
-
-            Picasso.with(this).load(it.imamgeUrl)
-                .into(imageView)
+        viewModel.pokemon.observe(this,{
+            loadPokemon(it)
         })
 
-        button.setOnClickListener{
-            getPokemon(generateRandomNumber())
+        binding.button.setOnClickListener{
+            viewModel.getRandomPokemon(Utils.generateRandomNumber(),this)
         }
     }
 
-    fun generateRandomNumber():Int{
-        return Random.nextInt(800 - 1) + 1
-    }
+    fun loadPokemon(pokemonData: PokemonData){
+        binding.nametxt.text = pokemonData.name;
 
-    fun getPokemon(id:Int) {
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://pokeapi.co/api/v2/pokemon/"+id
-
-        var pokemon : PokemonData? = null
-
-        val stringRequest = StringRequest(
-            Request.Method.GET, url,
-            Response.Listener<String> { response ->
-                val jsonResponse = JSONObject(response)
-
-                val id = jsonResponse.getInt("id")
-                val name = jsonResponse.getString("name")
-                val image = jsonResponse.getJSONObject("sprites").getString("front_default")
-                pokemon = PokemonData(id, name, image)
-                _pokemon.value=pokemon
-            },
-            Response.ErrorListener {
-                Log.e("error", "no Pokemon")
-            },
-        )
-        queue.add(stringRequest)
+        Picasso.with(this).load(pokemonData.imamgeUrl)
+            .into(binding.imageView)
     }
 }
