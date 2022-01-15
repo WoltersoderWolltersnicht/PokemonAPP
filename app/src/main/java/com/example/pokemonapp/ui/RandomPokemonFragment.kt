@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.pokemonapp.Utils
 import com.example.pokemonapp.databinding.FragmentRandomPokemonBinding
 import com.example.pokemonapp.models.PokemonData
+import com.example.pokemonapp.network.data.responses.GetPokemonResponse.GetPokemonResponse
 import com.squareup.picasso.Picasso
 
 class RandomPokemonFragment : Fragment() {
@@ -29,10 +30,7 @@ class RandomPokemonFragment : Fragment() {
         })
 
         binding.button.setOnClickListener{
-            activity?.let { it1 ->
-                viewModel.getRandomPokemon(Utils.generateRandomNumber(),
-                    it1.applicationContext)
-            }
+                viewModel.getRandomPokemon(Utils.generateRandomNumber())
         }
 
         return binding.root
@@ -43,10 +41,12 @@ class RandomPokemonFragment : Fragment() {
         _binding = null
     }
 
-    fun loadPokemon(pokemonData: PokemonData){
-        binding.nametxt.text = pokemonData.name;
+    fun loadPokemon(pokemonData: GetPokemonResponse?){
+        if(pokemonData != null) {
+            binding.nametxt.text = pokemonData.name;
 
-        Picasso.with(activity).load(pokemonData.imamgeUrl)
-            .into(binding.imageView)
+            Picasso.with(activity).load(pokemonData.sprites.front_default)
+                .into(binding.imageView)
+        }
     }
 }
