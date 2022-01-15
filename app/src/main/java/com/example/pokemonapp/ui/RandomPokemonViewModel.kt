@@ -1,4 +1,4 @@
-package com.example.pokemonapp
+package com.example.pokemonapp.ui
 
 import android.content.Context
 import android.util.Log
@@ -8,9 +8,10 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.pokemonapp.models.PokemonData
 import org.json.JSONObject
 
-class MainViewModel {
+class RandomPokemonViewModel {
 
     private val _pokemon : MutableLiveData<PokemonData> = MutableLiveData()
     val pokemon : LiveData<PokemonData> get() = _pokemon

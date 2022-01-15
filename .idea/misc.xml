@@ -3,14 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/Personal/Android Studio/PokemonAPP/app/src/main/res/layout/activity_main.xml" value="0.34692028985507245" />
+        <entry key="..\:/Projects/Personal/Android Studio/PokemonAPP/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
+        <entry key="..\:/Projects/Personal/Android Studio/PokemonAPP/app/src/main/res/layout/fragment_random_pokemon.xml" value="0.34692028985507245" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.34692028985507245" />
+      </ProjectState>
+    </option>
   </component>
 </project>
